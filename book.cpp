@@ -16,24 +16,30 @@ Book::~Book(){
 
 }
 
-set<string> Book::keywords(){
+set<string> Book::keywords() const{
+	set<string>* words = new set<string>;
 	set<string> temp;
 
-	keys = parseStringToWords(name_);
+	*words = parseStringToWords(name_);
 	temp = parseStringToWords(category_);
-	setIntersection(keys, temp);
+	setIntersection(*words, temp);
 	temp = parseStringToWords(author_);
-	setIntersection(keys, temp);
-	keys.insert(isbn_);
+	setIntersection(*words, temp);
+	words->insert(isbn_);
 
-	return keys;
+	return *words;
 }
 
-string Book::displayString(){
-	dString = "Category: " + category_ + "\nName: " + name_ + "\nPrice: " + 
+bool Book::isMatch(vector<string>& searchTerms) const{
+	return false;
+}
+
+string Book::displayString() const{
+	string* fstring = new string;
+	*fstring = "Category: " + category_ + "\nName: " + name_ + "\nPrice: " + 
 						to_string(price_) + "\nQuantity: " + to_string(qty_) + "\nISBN: " + isbn_ + "\nAuthor: " 
 						+ author_ + '\n';
-	return dString;
+	return *fstring;
 }
 
 void Book::dump(std::ostream& os) const{

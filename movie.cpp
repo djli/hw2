@@ -16,23 +16,29 @@ Movie::~Movie(){
 
 }
 
-set<string> Movie::keywords(){
+set<string> Movie::keywords() const{
+	set<string>* words = new set<string>;
 	set<string> temp;
 
-	keys = parseStringToWords(name_);
+	*words = parseStringToWords(name_);
 	temp = parseStringToWords(category_);
-	setIntersection(keys, temp);
+	setIntersection(*words, temp);
 	temp = parseStringToWords(genre_);
-	setIntersection(keys, temp);
+	setIntersection(*words, temp);
 
-	return keys;
+	return *words;
 }
 
-string Movie::displayString(){
-	dString = "Category: " + category_ + "\nName: " + name_ + "\nPrice: " + 
+bool Movie::isMatch(vector<string>& searchTerms) const{
+	return false;
+}
+
+string Movie::displayString() const{
+	string* fstring = new string;
+	*fstring = "Category: " + category_ + "\nName: " + name_ + "\nPrice: " + 
 						to_string(price_) + "\nQuantity: " + to_string(qty_) + "\nGenre: " 
 						+ genre_ + "\nRating: " + rating_ + '\n';
-	return dString;
+	return *fstring;
 }
 
 void Movie::dump(std::ostream& os) const{

@@ -16,23 +16,29 @@ Clothing::~Clothing(){
 
 }
 
-set<string> Clothing::keywords(){
+set<string> Clothing::keywords() const{
+	set<string>* words = new set<string>;
 	set<string> temp;
 
-	keys = parseStringToWords(name_);
+	*words = parseStringToWords(name_);
 	temp = parseStringToWords(category_);
-	setIntersection(keys, temp);
+	setIntersection(*words, temp);
 	temp = parseStringToWords(brand_);
-	setIntersection(keys, temp);
+	setIntersection(*words, temp);
 
-	return keys;
+	return *words;
 }
 
-string Clothing::displayString(){
-	dString = "Category: " + category_ + "\nName: " + name_ + "\nPrice: " + 
+bool Clothing::isMatch(vector<string>& searchTerms) const{
+	return false;
+}
+
+string Clothing::displayString() const{
+	string* fstring = new string;
+	*fstring = "Category: " + category_ + "\nName: " + name_ + "\nPrice: " + 
 						to_string(price_) + "\nQuantity: " + to_string(qty_) + "\nSize: " + size_ + "\nBrand: " 
 						+ brand_ + '\n';
-	return dString;
+	return *fstring;
 }
 
 void Clothing::dump(std::ostream& os) const{
